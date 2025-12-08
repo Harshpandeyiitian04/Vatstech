@@ -1,8 +1,8 @@
-'use client'
+"use client"
 import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Mail, User, Phone } from 'lucide-react';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +15,7 @@ export default function SignUpPage() {
         confirmPassword: '',
         agreeToTerms: false
     });
+    const router = useRouter();
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -38,9 +39,17 @@ export default function SignUpPage() {
                 password: formData.password
             });
             console.log('sign up completed');
-            redirect('/login')
-        } catch (err) {
+            router.push('/login');
+        } catch (err: any) {
             console.error('Signup request failed', err);
+            const status = err?.response?.status;
+            if (status === 409) {
+                alert('Account already exists. Redirecting to login.');
+                router.push('/login');
+                return;
+            }
+            const message = err?.response?.data?.error || err?.message || 'Signup failed — check server logs';
+            alert(message);
         }
     };
 
