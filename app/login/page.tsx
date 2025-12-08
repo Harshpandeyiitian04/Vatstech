@@ -1,6 +1,8 @@
-'use client'
+"use client"
 import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,10 +12,35 @@ export default function LoginPage() {
     rememberMe: false
   });
 
-  const handleSubmit = (e:React.FormEvent) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-    console.log('Login submitted:', formData);
-    // Add your login logic here
+    try {
+      const { email, password, rememberMe } = formData;
+      if (!email || !password) {
+        alert('Please provide email and password');
+        return;
+      }
+
+      const res = await axios.post('/api/login', { email, password });
+
+      // Server sets httpOnly cookie; response body contains user
+      const user = res.data?.user as { name?: string } | undefined;
+      const userName = user?.name;
+
+      if (userName) {
+        if (rememberMe) localStorage.setItem('userName', userName);
+        else sessionStorage.setItem('userName', userName);
+      }
+
+      // Redirect to home or dashboard
+      router.push('/');
+    } catch (err: any) {
+      console.error('Login error', err);
+      const message = err?.response?.data?.error || err?.message || 'Login failed';
+      alert(message);
+    }
   };
 
   const handleChange = (e: { target: { name: any; value: any; type: any; checked: any; }; }) => {

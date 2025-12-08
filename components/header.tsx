@@ -1,15 +1,38 @@
+"use client"
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export function Header() {
     
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const name = localStorage.getItem('userName') || sessionStorage.getItem('userName');
+    if (name) setUserName(name);
+  }, []);
+
+  async function handleLogout() {
+    try {
+      await axios.post('/api/logout');
+    } catch (e) {
+      console.error('Logout error', e);
+    }
+    localStorage.removeItem('userName');
+    sessionStorage.removeItem('userName');
+    setUserName(null);
+    router.push('/login');
+  }
+
   function handleStarted(){
-    redirect('/login')
+    if (userName) router.push('/');
+    else router.push('/login');
   }
     return (
         <>
@@ -32,9 +55,16 @@ export function Header() {
                             <Link href="#about" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">About</Link>
                             <Link href="#blog" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Blog</Link>
                             <Link href="#contact" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Contact</Link>
-                            <Button className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold shadow-md" onClick={handleStarted}>
-                                Get Started
-                            </Button>
+                            <div className="flex items-center space-x-3">
+                              <Button className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold shadow-md" onClick={handleStarted}>
+                                  {userName ? `Flat 10% discount for first-time users` : 'Get Started'}
+                              </Button>
+                              {userName && (
+                                <button onClick={handleLogout} className="text-sm text-gray-700 hover:text-gray-900">
+                                  Logout
+                                </button>
+                              )}
+                            </div>
                         </nav>
 
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -48,8 +78,8 @@ export function Header() {
                                     <Link href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">About</Link>
                                     <Link href="#blog" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">Blog</Link>
                                     <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">Contact</Link>
-                                    <Button className="w-full bg-[#00A8E8] hover:bg-[#0095D1] text-white text-lg py-6">
-                                        Get Started
+                                    <Button className="w-full bg-[#00A8E8] hover:bg-[#0095D1] text-white text-lg py-6" onClick={handleStarted}>
+                                        {userName ? `Flat 10% discount for first-time users` : 'Get Started'}
                                     </Button>
                                 </div>
                             </SheetContent>
