@@ -3,10 +3,14 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { redirect } from "next/navigation";
 
 export function Header() {
     
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  function handleStarted(){
+    redirect('/login')
+  }
     return (
         <>
             {/* Header */}
@@ -28,7 +32,7 @@ export function Header() {
                             <Link href="#about" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">About</Link>
                             <Link href="#blog" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Blog</Link>
                             <Link href="#contact" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Contact</Link>
-                            <Button className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold shadow-md">
+                            <Button className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold shadow-md" onClick={handleStarted}>
                                 Get Started
                             </Button>
                         </nav>
