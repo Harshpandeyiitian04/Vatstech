@@ -16,6 +16,7 @@ export default function SignUpPage() {
         agreeToTerms: false
     });
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -32,24 +33,33 @@ export default function SignUpPage() {
             return;
         }
         try {
+            setLoading(true);
             await axios.post('/api/signup', {
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
                 password: formData.password
             });
-            console.log('sign up completed');
+            // Success
+            alert('Account created — redirecting to login');
             router.push('/login');
         } catch (err: any) {
-            console.error('Signup request failed', err);
-            const status = err?.response?.status;
-            if (status === 409) {
-                alert('Account already exists. Redirecting to login.');
-                router.push('/login');
-                return;
+            // Handle Axios errors cleanly
+            if (axios.isAxiosError(err)) {
+                const status = err.response?.status;
+                if (status === 409) {
+                    // Account exists
+                    alert('Account already exists. Redirecting to login.');
+                    router.push('/login');
+                    return;
+                }
+                const message = err.response?.data?.error || err.message || 'Signup failed — check server logs';
+                alert(message);
+            } else {
+                alert('Signup failed — unexpected error');
             }
-            const message = err?.response?.data?.error || err?.message || 'Signup failed — check server logs';
-            alert(message);
+        } finally {
+            setLoading(false);
         }
     };
 
