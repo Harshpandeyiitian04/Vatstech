@@ -7,6 +7,7 @@ import { Client } from '@/components/client';
 import { Insight } from '@/components/insight';
 import { Contact } from '@/components/contact';
 import { Footer } from '@/components/footer';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function Home() {
   // const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,7 @@ export default function Home() {
       <Insight/>
       <Contact/>
       <Footer/>
+      <ChatWidget />
     </>
   );
 }
