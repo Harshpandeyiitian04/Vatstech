@@ -22,7 +22,10 @@ export function About() {
                                     >
                                         <CardHeader className="text-center">
                                             <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] rounded-2xl flex items-center justify-center shadow-lg">
-                                                <span className="text-white text-2xl font-bold">{service.icon}</span>
+                                                {(() => {
+                                                    const Icon = service.icon as any;
+                                                    return <Icon className="text-white" size={28} />;
+                                                })()}
                                             </div>
                                             <CardTitle className="text-3xl text-[#0A2240]">{service.title}</CardTitle>
                                             <CardDescription className="text-[#00A8E8] font-medium mt-2 text-lg">

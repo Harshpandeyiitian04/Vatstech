@@ -1,4 +1,13 @@
-import { Code, FileText, Megaphone, Palette, Users } from "lucide-react";
+import {
+  Calculator,
+  Code,
+  FileText,
+  Megaphone,
+  Monitor,
+  Palette,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 
 export const benefits = [
   "Startup India Certified Agency",
@@ -12,21 +21,39 @@ export const benefits = [
 export const services = [
   {
     id: 1,
-    icon: "AI",
-    title: "Startups & Entrepreneurs",
-    tags: "Compliance, digital presence, and growth solutions.",
+    icon: FileText,
+    title: "Business Registration & Certification",
+    tags: "Company incorporation, GST, MSME, trademark registration.",
   },
   {
     id: 2,
-    icon: "Cloud",
-    title: "SMEs & Corporates",
-    tags: "Complete Business & IT Solutions.",
+    icon: Calculator,
+    title: "Annual Compliance",
+    tags: "Accounting and corporate filings.",
   },
   {
     id: 3,
-    icon: "Dev",
-    title: "Educational Institutions",
-    tags: "ERP systems, manpower solutions, and training programs.",
+    icon: Palette,
+    title: "Graphic Design",
+    tags: "Logos, brochures, and brand visuals.",
+  },
+  {
+    id: 4,
+    icon: Monitor,
+    title: "Website Design & Development",
+    tags: "Responsive and user-friendly digital experiences.",
+  },
+  {
+    id: 5,
+    icon: TrendingUp,
+    title: "Digital Marketing",
+    tags: "SEO, social media, PPC, and content marketing.",
+  },
+  {
+    id: 6,
+    icon: Users,
+    title: "Training & Manpower Solutions",
+    tags: "Corporate training and professional development.",
   },
 ];
 
