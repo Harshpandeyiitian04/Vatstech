@@ -41,11 +41,6 @@ export default function ChatWidget() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4-.86L3 20l1.16-3.03A7.992 7.992 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg> */}
       </button >
-      <button className="relative fixed z-50 right-6 bottom-6 w-14 h-14 rounded-full overflow-hidden shadow-lg" aria-label="Open chat"
-        onClick={() => setOpen(true)}>
-       
-        {/* overlay/icon */}
-      </button>
 
       {/* Modal */}
       {
