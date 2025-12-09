@@ -29,12 +29,23 @@ export default function ChatWidget() {
       <button
         aria-label="Open chat"
         onClick={() => setOpen(true)}
-        className="fixed z-50 right-21 bottom-21 w-21 h-21 bg-[url('/1.png')] bg-cover bg-center text-white px-4 py-2   text-white rounded-full shadow-lg flex items-center justify-center"
+        className="fixed z-50 right-21 bottom-21 w-28 h-28  text-white px-4 py-2   text-white rounded-full shadow-lg flex items-center justify-center"
       >
+         <img
+          src="/1.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover rounded-full "
+          style={{ objectPosition: '50% 10%' }} // center horizontally, 30% from top vertically
+        />
         {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4-.86L3 20l1.16-3.03A7.992 7.992 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg> */}
       </button >
+      <button className="relative fixed z-50 right-6 bottom-6 w-14 h-14 rounded-full overflow-hidden shadow-lg" aria-label="Open chat"
+        onClick={() => setOpen(true)}>
+       
+        {/* overlay/icon */}
+      </button>
 
       {/* Modal */}
       {

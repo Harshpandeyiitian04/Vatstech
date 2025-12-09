@@ -10,13 +10,11 @@ export function Footer() {
                     <div className="grid md:grid-cols-4 gap-10">
                         <div>
                             <div className="flex items-center space-x-3 mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-[#00A8E8] to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-2xl shadow-xl">
-                                    V
-                                </div>
-                                <span className="text-2xl font-bold">Vatstech</span>
+                                <img src="/2.png" alt="" srcSet="" className="h-28 w-56 rounded-xl m-3 ml-14"/>
+                                {/* <span className="text-2xl font-bold">Vatstech</span> */}
                             </div>
-                            <p className="text-gray-300 leading-relaxed">
-                                Building tomorrow's technology, today.
+                            <p className="text-gray-300 leading-relaxed text-center">
+                                VATSTECH BUSINESS SOLUTION PRIVATE LIMITED 
                             </p>
                         </div>
                         <div>
@@ -44,7 +42,7 @@ export function Footer() {
                         </div>
                     </div>
                     <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-                        © 2025 Vatstech. All rights reserved.
+                        © VATSTECH BUSINESS SOLUTION PRIVATE LIMITED . CIN: U62099BR2025PTC073050 . All rights reserved. 
                     </div>
                 </div>
             </footer>
