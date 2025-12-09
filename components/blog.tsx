@@ -80,7 +80,7 @@ export function Blog() {
                                                     ? `₹${service.price.toLocaleString('en-IN')}`
                                                     : service.price}
                                                 <span className="text-sm font-normal text-gray-500 block mt-1">
-                                                    {typeof service.price === 'number' ? 'starting' : ''}
+                                                    {typeof service.price === 'number' ? 'exclusive gst' : ''}
                                                 </span>
                                             </p>
                                             <Button size="lg" className="mt-4 w-full bg-[#00A8E8] hover:bg-[#0095D1]">

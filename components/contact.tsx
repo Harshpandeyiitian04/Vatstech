@@ -18,21 +18,21 @@ export function Contact() {
                                     <Mail className="h-10 w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240]">Email</p>
-                                <p className="text-gray-600">hello@vatstech.io</p>
+                                <p className="text-gray-600"> info@vatstech.in</p>
                             </div>
                             <div className="flex flex-col items-center">
                                 <div className="w-20 h-20 bg-[#E6F4FA] rounded-full flex items-center justify-center mb-5 shadow-inner">
                                     <Phone className="h-10 w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240]">Phone</p>
-                                <p className="text-gray-600">+91 (555) 123-4567</p>
+                                <p className="text-gray-600"> +91- 9576894955</p>
                             </div>
                             <div className="flex flex-col items-center">
                                 <div className="w-20 h-20 bg-[#E6F4FA] rounded-full flex items-center justify-center mb-5 shadow-inner">
                                     <MapPin className="h-10 w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240]">Location</p>
-                                <p className="text-gray-600">Mumbai, India</p>
+                                <p className="text-gray-600">Patna, Bihar India</p>
                             </div>
                         </div>
                         <Button size="lg" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-xl px-12 py-7">

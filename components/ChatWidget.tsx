@@ -42,7 +42,7 @@ export default function ChatWidget() {
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
           <div className="relative w-full max-w-md mx-4 mb-6 bg-white rounded-xl shadow-xl overflow-hidden flex flex-col" role="dialog" aria-modal="true">
             <div className="flex items-center justify-between px-4 py-3 border-b">
-              <strong>Chat With Vatstech</strong>
+              <strong>PRIYA AI</strong>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => { setMessages([]); setText(''); }}

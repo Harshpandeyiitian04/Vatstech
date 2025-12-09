@@ -42,12 +42,10 @@ export function Header() {
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex items-center">
                             <Link href="/" className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-gradient-to-br from-[#0A2240] to-[#00A8E8] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                                    V
-                                </div>
-                                <span className="text-2xl font-bold text-[#0A2240]">
+                                <img src="/3.png" alt="" srcSet="" className="h-15"/>
+                                {/* <span className="text-2xl font-bold text-[#0A2240]">
                                     Vatstech
-                                </span>
+                                </span> */}
                             </Link>
                         </div>
 
