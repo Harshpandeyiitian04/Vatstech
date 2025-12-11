@@ -1,8 +1,13 @@
 import { benefits } from "@/lib/content";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function Client() {
+    const router = useRouter()
+    function handleExplore(){
+        router.push('/services')
+    }
     return (
         <>
             {/* Client Section */}
@@ -27,6 +32,7 @@ export function Client() {
                             ))}
                         </div>
                         <Button
+                        onClick={handleExplore}
                             size="lg"
                             className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-lg px-12 h-14 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                         >

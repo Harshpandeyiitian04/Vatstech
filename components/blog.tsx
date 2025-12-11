@@ -84,7 +84,7 @@ export function Blog() {
                                                 </span>
                                             </p>
                                             <Button size="lg" className="mt-4 w-full bg-[#00A8E8] hover:bg-[#0095D1]">
-                                                <ArrowRightIcon />
+                                                Get It now<ArrowRightIcon />
                                             </Button>
                                         </CardContent>
                                     </Card>

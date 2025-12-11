@@ -1,4 +1,5 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Github, Instagram, Linkedin, Twitter } from "lucide-react";
+import { FaWhatsapp } from 'react-icons/fa';
 import Link from "next/link";
 
 export function Footer() {
@@ -35,9 +36,11 @@ export function Footer() {
                         <div>
                             <h4 className="font-semibold mb-5 text-lg">Follow Us</h4>
                             <div className="flex space-x-6">
-                                <a href="#" className="hover:text-[#00A8E8] transition"><Twitter className="w-6 h-6" /></a>
-                                <a href="#" className="hover:text-[#00A8E8] transition"><Linkedin className="w-6 h-6" /></a>
-                                <a href="#" className="hover:text-[#00A8E8] transition"><Github className="w-6 h-6" /></a>
+                                <a href="https://www.x.com/vatstechb" className="hover:text-[#f6d11b] transition"><Twitter className="w-6 h-6" /></a>
+                                <a href=" https://linkedin.com/company/vatstechb" className="hover:text-[#6617ed] transition"><Linkedin className="w-6 h-6" /></a>
+                                <a href="https://www.facebook.com/vatstechb" className="hover:text-[#20bbf8] transition"><Facebook className="w-6 h-6" /></a>
+                                <a href="https://www.instagram.com/vatstechb" className="hover:text-[#fe0ef6] transition"><Instagram className="w-6 h-6" /></a>
+                                <a href="https://wa.me/919576894955" className="hover:text-[#34f908] transition"><FaWhatsapp className="w-6 h-6" /></a>
                             </div>
                         </div>
                     </div>

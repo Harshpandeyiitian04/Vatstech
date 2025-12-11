@@ -1,6 +1,12 @@
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 export function Intro() {
+    const router = useRouter()
+    
+    function handleExplore(){
+        router.push('/services')
+    }
     return (
         <>
             {/* Hero Section - Blue Theme */}
@@ -14,7 +20,7 @@ export function Intro() {
                             <span>A multi-service company dedicated to empowering individuals, entrepreneurs, and organizations to thrive in today's competitive business landscape through comprehensive business solutions across India.</span>
                         </p>
                         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Button size="default" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-lg px-10 h-14">
+                            <Button size="default" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-lg px-10 h-14 " onClick={handleExplore}>
                                 Explore Services
                             </Button>
                             <Button size="default" variant="outline" className="border-[#00A8E8] text-[#00A8E8] hover:bg-[#e4eef2] hover:text-[#00A8E8] h-14">

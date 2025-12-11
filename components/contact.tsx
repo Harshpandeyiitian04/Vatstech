@@ -1,7 +1,12 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function Contact() {
+    const router = useRouter()
+    function handleContact(){
+            router.push('/contact')
+    }
     return (
         <>
             {/* Contact Section */}
@@ -35,7 +40,7 @@ export function Contact() {
                                 <p className="text-gray-600">Patna, Bihar India</p>
                             </div>
                         </div>
-                        <Button size="lg" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-xl px-12 py-7">
+                        <Button onClick={handleContact} size="lg" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-xl px-12 py-7">
                             Contact Sales
                         </Button>
                     </div>
