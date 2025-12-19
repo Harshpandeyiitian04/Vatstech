@@ -46,7 +46,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-[#F8FBFD] sticky top-0 z-40 border-b">
+      <section className="py-8 bg-[#F8FBFD] sticky top-14 z-40 border-b">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => {
