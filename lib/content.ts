@@ -176,7 +176,7 @@ export const values = [
 ];
 
 export const benefits = [
-  "Startup India Certified Agency",
+  "Startup India Certified Company",
   "Complete Business & IT Solutions Under One Roof",
   "100% Transparent & Affordable Pricing",
   "Trusted by 500+ Startups, SMEs & Institutions",
