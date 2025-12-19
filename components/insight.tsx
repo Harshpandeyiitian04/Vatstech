@@ -1,8 +1,13 @@
 import { insights } from "@/lib/content";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function Insight() {
+    const router = useRouter()
+    function handleInsight(){
+        router.push('/insight')
+    }
     return (
         <>
             {/* insight */}
@@ -77,7 +82,7 @@ export function Insight() {
 
                     {/* Optional: View All Button */}
                     <div className="text-center mt-16">
-                        <Button size="lg" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold px-10">
+                        <Button onClick={handleInsight} size="lg" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-semibold px-10">
                             View All Insights
                         </Button>
                     </div>

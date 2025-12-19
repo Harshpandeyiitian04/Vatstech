@@ -15,15 +15,15 @@ export function Footer() {
                                 {/* <span className="text-2xl font-bold">Vatstech</span> */}
                             </div>
                             <p className="text-gray-300 leading-relaxed text-center">
-                                VATSTECH BUSINESS SOLUTION PRIVATE LIMITED 
+                                VATSTECH BUSINESS SOLUTION PRIVATE LIMITED  CIN: U62099BR2025PTC073050 .
                             </p>
                         </div>
                         <div>
                             <h4 className="font-semibold mb-5 text-lg">Company</h4>
                             <ul className="space-y-3 text-gray-300">
-                                <li><Link href="#about" className="hover:text-[#00A8E8] transition">About</Link></li>
-                                <li><Link href="#blog" className="hover:text-[#00A8E8] transition">Blog</Link></li>
-                                <li><Link href="#" className="hover:text-[#00A8E8] transition">Careers</Link></li>
+                                <li><Link href="/about" className="hover:text-[#00A8E8] transition">About</Link></li>
+                                <li><Link href="/services" className="hover:text-[#00A8E8] transition">Blog</Link></li>
+                                <li><Link href="/" className="hover:text-[#00A8E8] transition">Careers</Link></li>
                             </ul>
                         </div>
                         <div>
@@ -45,7 +45,7 @@ export function Footer() {
                         </div>
                     </div>
                     <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-                        © VATSTECH BUSINESS SOLUTION PRIVATE LIMITED . CIN: U62099BR2025PTC073050 . All rights reserved. 
+                        © VATSTECH BUSINESS SOLUTION PRIVATE LIMITED . All rights reserved. 
                     </div>
                 </div>
             </footer>

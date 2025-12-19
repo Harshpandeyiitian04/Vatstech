@@ -1,6 +1,7 @@
 'use client'
 import { Service, servicesData } from '@/lib/servicescontent';
 import { ArrowRight, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 
@@ -8,6 +9,8 @@ export default function ServicesPage(){
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  const router = useRouter()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,6 +35,9 @@ export default function ServicesPage(){
   const toggleCategory = (category: string) => {
     setExpandedCategory(expandedCategory === category ? null : category);
   };
+  function handleContact(){
+    router.push("/contact")
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
@@ -179,7 +185,7 @@ export default function ServicesPage(){
           <p className="text-lg text-gray-600 mb-8">
             Let's discuss how we can help your business thrive
           </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg">
+          <button onClick={handleContact} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg">
             Contact Us Today
           </button>
         </div>

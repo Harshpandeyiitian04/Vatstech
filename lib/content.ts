@@ -1,13 +1,179 @@
 import {
+  CheckCircle2,
+  Target,
+  Eye,
+  Award,
+  Users,
+  Briefcase,
+  TrendingUp,
+  Shield,
+  Tag,
+  Lightbulb,
+  BookOpen,
   Calculator,
   Code,
   FileText,
   Megaphone,
   Monitor,
   Palette,
-  TrendingUp,
-  Users,
 } from "lucide-react";
+
+export const categories = [
+  { id: "all", name: "All Insights", icon: BookOpen },
+  { id: "compliance", name: "Compliance", icon: FileText },
+  { id: "business", name: "Business Growth", icon: TrendingUp },
+  { id: "technology", name: "Technology", icon: Lightbulb },
+  { id: "marketing", name: "Marketing", icon: Tag },
+];
+
+export const insight = [
+  {
+    id: 1,
+    title:
+      "GST Compliance Updates for 2025: What Every Business Owner Needs to Know",
+    excerpt:
+      "Stay ahead of the curve with the latest GST compliance requirements and changes effective from January 2025. Learn about new filing procedures, penalty structures, and optimization strategies.",
+    category: "compliance",
+    date: "Dec 15, 2024",
+    readTime: "8 min read",
+    image:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    author: "VatsTech Legal Team",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "5 Digital Marketing Trends That Will Dominate 2025",
+    excerpt:
+      "Discover the emerging digital marketing strategies that successful businesses are implementing. From AI-powered campaigns to interactive content, learn what's driving results.",
+    category: "marketing",
+    date: "Dec 12, 2024",
+    readTime: "6 min read",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    author: "Marketing Team",
+  },
+  {
+    id: 3,
+    title: "Complete Guide to MSME Registration Benefits in 2025",
+    excerpt:
+      "Understanding the advantages of MSME registration including tax benefits, easier loan access, and government subsidies. A step-by-step breakdown of the registration process.",
+    category: "compliance",
+    date: "Dec 10, 2024",
+    readTime: "10 min read",
+    image:
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+    author: "VatsTech Advisory",
+  },
+  {
+    id: 4,
+    title: "Scaling Your Startup: From Idea to Profitable Business",
+    excerpt:
+      "Real strategies from successful entrepreneurs on building sustainable growth. Learn about funding options, team building, and market expansion tactics that actually work.",
+    category: "business",
+    date: "Dec 8, 2024",
+    readTime: "12 min read",
+    image:
+      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80",
+    author: "Business Strategy Team",
+    featured: true,
+  },
+  {
+    id: 5,
+    title:
+      "Website Design Essentials: Creating User-Friendly Digital Experiences",
+    excerpt:
+      "Master the fundamentals of effective website design. From responsive layouts to conversion optimization, discover what makes websites that actually generate business.",
+    category: "technology",
+    date: "Dec 5, 2024",
+    readTime: "7 min read",
+    image:
+      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    author: "Tech Team",
+  },
+  {
+    id: 6,
+    title: "Trademark Registration: Protecting Your Brand Identity",
+    excerpt:
+      "Everything you need to know about trademark registration in India. Learn about the process, costs, common mistakes to avoid, and how to maintain your trademark rights.",
+    category: "compliance",
+    date: "Dec 3, 2024",
+    readTime: "9 min read",
+    image:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+    author: "Legal Team",
+  },
+  {
+    id: 7,
+    title: "SEO Strategies That Actually Work in 2025",
+    excerpt:
+      "Cut through the noise with proven SEO tactics. From technical optimization to content strategy, learn how to rank higher and drive organic traffic to your business.",
+    category: "marketing",
+    date: "Dec 1, 2024",
+    readTime: "11 min read",
+    image:
+      "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80",
+    author: "SEO Specialists",
+  },
+  {
+    id: 8,
+    title: "Understanding Annual Compliance Requirements for Private Companies",
+    excerpt:
+      "A comprehensive guide to statutory compliance obligations including ROC filings, tax returns, and board meetings. Stay compliant and avoid penalties.",
+    category: "compliance",
+    date: "Nov 28, 2024",
+    readTime: "8 min read",
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    author: "Compliance Team",
+  },
+  {
+    id: 9,
+    title: "Building a Strong Brand Identity: Logo Design Best Practices",
+    excerpt:
+      "Your logo is the face of your business. Learn the principles of effective logo design and how to create a visual identity that resonates with your target audience.",
+    category: "business",
+    date: "Nov 25, 2024",
+    readTime: "6 min read",
+    image:
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
+    author: "Design Team",
+  },
+];
+
+export const stats = [
+  { number: "2025", label: "Founded", icon: Award },
+  { number: "Pan-India", label: "Service Coverage", icon: TrendingUp },
+  { number: "100+", label: "Services Offered", icon: Briefcase },
+  { number: "1000+", label: "Happy Clients", icon: Users },
+];
+
+export const values = [
+  {
+    icon: Award,
+    title: "Quality Over Quantity",
+    description:
+      "We deliver exceptional service that creates lasting value, measuring success by client outcomes rather than transaction numbers.",
+  },
+  {
+    icon: Users,
+    title: "Empowerment",
+    description:
+      "We equip clients with knowledge, tools, and confidence to thrive independently, fostering sustainable growth.",
+  },
+  {
+    icon: Shield,
+    title: "Compliance & Transparency",
+    description:
+      "As a Startup India-recognized company, we uphold the highest standards of legal compliance and operate with complete transparency.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Innovation with Responsibility",
+    description:
+      "We embrace technology guided by data security, privacy protection, and user welfare, creating safe and sustainable solutions.",
+  },
+];
 
 export const benefits = [
   "Startup India Certified Agency",

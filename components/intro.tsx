@@ -7,6 +7,9 @@ export function Intro() {
     function handleExplore(){
         router.push('/services')
     }
+    function handleContact(){
+        router.push('/contact')
+    }
     return (
         <>
             {/* Hero Section - Blue Theme */}
@@ -23,7 +26,7 @@ export function Intro() {
                             <Button size="default" className="bg-[#00A8E8] hover:bg-[#0095D1] text-white font-bold text-lg px-10 h-14 " onClick={handleExplore}>
                                 Explore Services
                             </Button>
-                            <Button size="default" variant="outline" className="border-[#00A8E8] text-[#00A8E8] hover:bg-[#e4eef2] hover:text-[#00A8E8] h-14">
+                            <Button onClick={handleContact} size="default" variant="outline" className="border-[#00A8E8] text-[#00A8E8] hover:bg-[#e4eef2] hover:text-[#00A8E8] h-14">
                                 Contact Us
                             </Button>
                         </div>

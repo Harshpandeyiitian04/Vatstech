@@ -1,8 +1,13 @@
 import { services } from "@/lib/content";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function About() {
+    const router = useRouter()
+    function handleAbout(){
+        router.push('/about')
+    }
     return (
         <>
             {/* About Section */}
@@ -33,7 +38,7 @@ export function About() {
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent className="text-center">
-                                            <Button variant="link" className="text-[#00A8E8] hover:text-[#0095D1] font-semibold">
+                                            <Button onClick={handleAbout} variant="link" className="text-[#00A8E8] hover:text-[#0095D1] font-semibold">
                                                 Learn More
                                             </Button>
                                         </CardContent>
