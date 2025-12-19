@@ -106,9 +106,11 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="bg-white">
               <div className="flex flex-col space-y-8 mt-10">
-                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">About</Link>
-                <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">Blog</Link>
-                <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-gray-800 hover:text-[#00A8E8]">Contact</Link>
+                   <Link href="/" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Home</Link>
+                   <Link href="/about" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">About</Link>
+                   <Link href="/services" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Blog</Link>
+                   <Link href="/contact" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Contact</Link>
+                   <Link href="/insight" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Insight</Link>
                 <Button className="w-full bg-[#00A8E8] hover:bg-[#0095D1] text-white text-lg py-6" onClick={handleStarted}>
                   {userName ? `Flat 10% discount for first-time users` : 'Get Started'}
                 </Button>
