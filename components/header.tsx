@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { useRouter } from 'next/navigation';
@@ -101,16 +101,18 @@ export function Header() {
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6 text-[#0A2240]" />
+                <SheetTitle>
+                  <Menu className="h-6 w-6 text-[#0A2240]" />
+                </SheetTitle>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-white">
-              <div className="flex flex-col space-y-8 mt-10">
-                   <Link href="/" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Home</Link>
-                   <Link href="/about" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">About</Link>
-                   <Link href="/services" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Blog</Link>
-                   <Link href="/contact" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Contact</Link>
-                   <Link href="/insight" className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Insight</Link>
+              <div className="flex flex-col space-y-8 mt-10 mx-3">
+                   <Link href="/"  onClick={()=>setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Home</Link>
+                   <Link href="/about" onClick={()=>setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-[#00A8E8] font-medium transition">About</Link>
+                   <Link href="/services" onClick={()=>setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Blog</Link>
+                   <Link href="/contact" onClick={()=>setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Contact</Link>
+                   <Link href="/insight" onClick={()=>setIsMobileMenuOpen(false)} className="text-gray-700 hover:text-[#00A8E8] font-medium transition">Insight</Link>
                 <Button className="w-full bg-[#00A8E8] hover:bg-[#0095D1] text-white text-lg py-6" onClick={handleStarted}>
                   {userName ? `Flat 10% discount for first-time users` : 'Get Started'}
                 </Button>
