@@ -10,7 +10,7 @@ export function Footer() {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-10">
                         <div className="">
-                            <div className="flex items-center justify-center space-x-3 mb-14 overflow-hidden m-3 ml-14 mr-14 ">
+                            <div className="flex items-center justify-center space-x-3 mb-5 overflow-hidden m-3 ml-14 mr-14 ">
                                 <img src="/22.png" alt="" srcSet="" className="w-56 h-35 rounded-xl object-cover" />
                                 {/* <span className="text-2xl font-bold">Vatstech</span> */}
                             </div>
