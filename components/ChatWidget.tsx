@@ -29,7 +29,7 @@ export default function ChatWidget() {
       {/* Floating button */}
       <button
         aria-label="Open chat"
-        className="fixed z-50 right-21 bottom-21 w-14 h-14  text-[#34f908] px-4 py-2   text-[#34f908] rounded-full shadow-lg flex items-center justify-center"
+        className="fixed z-50 right-7 bottom-7 w-14 h-14  text-[#34f908] px-4 py-2   text-[#34f908] rounded-full shadow-lg flex items-center justify-center"
       >
         <a href="https://wa.me/919576894955" className="hover:text-[#34f908] transition"><FaWhatsapp className="w-14 h-14" /></a>
          {/* <img

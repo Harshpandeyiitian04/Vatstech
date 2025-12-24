@@ -28,8 +28,9 @@ export default function Home() {
       <Blog/>
       <About/>
       <Client/>
-      <Insight/>
+      {/* <Insight/> */}
       <Contact/>
+      {/* <ChatWidget /> */}
     </>
   );
 }
