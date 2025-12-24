@@ -10,8 +10,8 @@ export function Footer() {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-10">
                         <div className="">
-                            <div className="flex items-center justify-center space-x-3 mb-5 overflow-hidden m-3 ml-14 mr-14 ">
-                                <img src="/22.png" alt="" srcSet="" className="w-56 h-35 rounded-xl object-cover" />
+                            <div className="flex items-center-safe justify-center lg:justify-end space-x-3 mb-5 overflow-hidden m-3 mr-14 lg:ml-14 lg:w-70 sm:w-56 sm:ml-0 sm:translate-x-[-50px]">
+                                <img src="/22.png" alt="" srcSet="" className="w-50 h-35  rounded-xl object-cover " />
                                 {/* <span className="text-2xl font-bold">Vatstech</span> */}
                             </div>
                             <div className="text-gray-300 leading-relaxed text-center">
