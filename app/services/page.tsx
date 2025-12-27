@@ -11,6 +11,17 @@ export default function ServicesPage(){
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   const router = useRouter()
+  function slugify(str: string) {
+        return str
+            .toLowerCase()
+            .replace(/&/g, "and")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
+    }
+    function handleGetit(category: string, service: string) {
+        const serviceSlug = slugify(service);
+        router.push(`/services/${category}/${serviceSlug}`);
+    }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -211,7 +222,7 @@ export default function ServicesPage(){
               </div>
             </div>
             <div className="flex gap-4">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors">
+              <button onClick={()=>handleGetit(expandedCategory!,selectedService.name)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors">
                 Get Started
               </button>
               <button

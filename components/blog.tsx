@@ -3,9 +3,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRightIcon, CheckCircle2Icon, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function Blog() {
     const [activeCategory, setActiveCategory] = useState<CategoryKey | null>(null);
+    const router = useRouter()
+    function slugify(str: string) {
+        return str
+            .toLowerCase()
+            .replace(/&/g, "and")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
+    }
+    function handleGetit(category: string, service: string) {
+        const serviceSlug = slugify(service);
+        router.push(`/services/${category}/${serviceSlug}`);
+    }
     return (
         <>
             {/* Blog Section */}
@@ -80,10 +93,10 @@ export function Blog() {
                                                     ? `₹${service.price.toLocaleString('en-IN')}`
                                                     : service.price}
                                                 <span className="text-sm font-normal text-gray-500 block mt-1">
-                                                    {typeof service.price === 'number' ? 'exclusive gst' : ''}
+                                                    {typeof service.price === 'number' ? 'EXCLUSIVE GST' : ''}
                                                 </span>
                                             </p>
-                                            <Button size="lg" className="mt-4 w-full bg-[#00A8E8] hover:bg-[#0095D1]">
+                                            <Button onClick={() => handleGetit(activeCategory, service.name)} size="lg" className="mt-4 w-full bg-[#00A8E8] hover:bg-[#0095D1]">
                                                 Get It now<ArrowRightIcon />
                                             </Button>
                                         </CardContent>
