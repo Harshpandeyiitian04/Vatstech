@@ -8,90 +8,73 @@ export default function ChatWidget() {
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // useEffect(() => {
-  //   if (open) setTimeout(() => inputRef.current?.focus(), 100);
-  // }, [open]);
-
-  // function send() {
-  //   const t = text.trim();
-  //   if (!t) return;
-  //   setMessages(m => [...m, { from: 'user', text: t }]);
-  //   setText('');
-
-  //   // Placeholder AI response (echo + small delay). Replace with real API call later.
-  //   setTimeout(() => {
-  //     setMessages(m => [...m, { from: 'bot', text: `Bot: I heard "${t}" — this is a demo response.` }]);
-  //   }, 700);
-  // }
-
   return (
     <>
-      {/* Floating button */}
       <button
-        aria-label="Open chat"
-        className="fixed z-50 right-7 bottom-7 w-14 h-14  text-[#34f908] px-4 py-2   text-[#34f908] rounded-full shadow-lg flex items-center justify-center"
+        aria-label="Chat with us on WhatsApp"
+        className="fixed z-50 right-3 sm:right-4 md:right-6 lg:right-7 bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-7 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white shadow-xl hover:shadow-2xl rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 group"
       >
-        <a href="https://wa.me/919576894955" className="hover:text-[#34f908] transition"><FaWhatsapp className="w-14 h-14" /></a>
-         {/* <img
-          src="/1.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover rounded-full "
-          style={{ objectPosition: '50% 10%' }} // center horizontally, 30% from top vertically
-        /> */}
-        {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4-.86L3 20l1.16-3.03A7.992 7.992 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg> */}
-      </button >
+        <a
+          href="https://wa.me/919576894955"
+          className="flex items-center justify-center w-full h-full rounded-full"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaWhatsapp className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#25D366]" />
+          <span className="absolute -top-10 right-0 bg-gray-900 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden lg:block">
+            Chat with us on WhatsApp
+          </span>
+          <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-20 animate-ping group-hover:animate-none"></span>
+        </a>
+      </button>
 
-      {/* Modal */}
-      {/* {
-        open && (
-          <div className="fixed inset-0 z-50 flex items-end justify-center">
-            <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-            <div className="relative w-full max-w-md mx-4 mb-6 bg-white rounded-xl shadow-xl overflow-hidden flex flex-col" role="dialog" aria-modal="true">
-              <div className="flex items-center justify-between px-4 py-3 border-b">
-                <strong>PRIYA AI</strong>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => { setMessages([]); setText(''); }}
-                    className="text-sm text-gray-600 hover:text-gray-900"
-                  >
-                    Clear
-                  </button>
-                  <button onClick={() => setOpen(false)} aria-label="Close" className="text-gray-600 hover:text-gray-900">✕</button>
-                </div>
-              </div>
-
-              <div className="p-4 flex-1 overflow-auto" style={{ minHeight: 200 }}>
-                {messages.length === 0 && (
-                  <p className="text-sm text-gray-500">Hi! Ask me anything — this is a demo chatbot.</p>
-                )}
-                <div className="space-y-3">
-                  {messages.map((m, i) => (
-                    <div key={i} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`${m.from === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'} px-3 py-2 rounded-lg max-w-[80%]`}>
-                        {m.text}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-3 border-t flex gap-2">
-                <input
-                  ref={inputRef}
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') send(); }}
-                  className="flex-1 px-3 py-2 border rounded-md outline-none"
-                  placeholder="Type your message..."
-                />
-                <button onClick={send} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Send</button>
+      {/* Uncomment and add responsive styles if you want to enable the chatbot modal in the future */}
+      {/* {open && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center p-2 sm:p-4">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
+          <div className="relative w-full max-w-md mx-auto bg-white rounded-lg sm:rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[80vh] sm:max-h-[70vh]" role="dialog" aria-modal="true">
+            <div className="flex items-center justify-between px-4 py-3 border-b">
+              <strong className="text-sm sm:text-base">PRIYA AI</strong>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => { setMessages([]); setText(''); }}
+                  className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
+                >
+                  Clear
+                </button>
+                <button onClick={() => setOpen(false)} aria-label="Close" className="text-gray-600 hover:text-gray-900 text-lg">✕</button>
               </div>
             </div>
+
+            <div className="p-3 sm:p-4 flex-1 overflow-auto" style={{ minHeight: 150 }}>
+              {messages.length === 0 && (
+                <p className="text-xs sm:text-sm text-gray-500">Hi! Ask me anything — this is a demo chatbot.</p>
+              )}
+              <div className="space-y-2 sm:space-y-3">
+                {messages.map((m, i) => (
+                  <div key={i} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`${m.from === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'} px-3 py-2 rounded-lg max-w-[85%] text-sm sm:text-base`}>
+                      {m.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-3 border-t flex gap-2">
+              <input
+                ref={inputRef}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') send(); }}
+                className="flex-1 px-3 py-2 border rounded-md outline-none text-sm sm:text-base"
+                placeholder="Type your message..."
+              />
+              <button onClick={send} className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base">Send</button>
+            </div>
           </div>
-        )
-      } */}
+        </div>
+      )} */}
     </>
   );
 }
