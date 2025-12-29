@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
     const router = useRouter()
@@ -11,34 +12,50 @@ export function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         number: '',
-      });
-      const [isSubmitting, setIsSubmitting] = useState(false);
-      const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-    
-      const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
-          ...prev,
-          [name]: value,
+            ...prev,
+            [name]: value,
         }));
-      };
-    
-      const handleSubmit = async (e: React.FormEvent) => {
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitStatus('idle');
-    
-        // Simulate API call
+
         try {
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          setSubmitStatus('success');
-          setFormData({ name: '', number: ''});
+            // Send email using EmailJS
+            const result = await emailjs.send(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+                {
+                    name: formData.name,
+                    email: '', // Empty for this form
+                    phone: formData.number,
+                    message: 'Quick contact request - please call back',
+                    title: 'Quick Contact Request'
+                },
+                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+            );
+
+            if (result.text === 'OK') {
+                setSubmitStatus('success');
+                setFormData({ name: '', number: '' });
+            }
         } catch (error) {
-          setSubmitStatus('error');
+            console.error('EmailJS Error:', error);
+            setSubmitStatus('error');
         } finally {
-          setIsSubmitting(false);
+            setIsSubmitting(false);
         }
-      };
+    };
+
     return (
         <>
             {/* Contact Section */}
@@ -101,8 +118,8 @@ export function Contact() {
                                         type="submit"
                                         disabled={isSubmitting}
                                         className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${isSubmitting
-                                                ? 'bg-gray-400 cursor-not-allowed'
-                                                : 'bg-cyan-600 hover:bg-cyan-300 text-white hover:scale-105'
+                                            ? 'bg-gray-400 cursor-not-allowed'
+                                            : 'bg-cyan-600 hover:bg-cyan-300 text-white hover:scale-105'
                                             }`}
                                     >
                                         {isSubmitting ? 'Sending...' : 'Send Message'}

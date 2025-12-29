@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -25,12 +26,27 @@ const ContactPage: React.FC = () => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: '', // Empty for this form
+          message: formData.message,
+          title: 'Website Contact Form'
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      if (result.text === 'OK') {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      }
     } catch (error) {
+      console.error('EmailJS Error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -127,11 +143,10 @@ const ContactPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${
-                  isSubmitting
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${isSubmitting
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105'
-                }`}
+                  }`}
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
@@ -153,40 +168,40 @@ const ContactPage: React.FC = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Follow Us</h2>
           <div className="flex justify-center gap-6">
-            <a
-              href="https://www.facebook.com/vatstechb"
+
+            <a href="https://www.facebook.com/vatstechb"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all"
             >
               <Facebook className="w-6 h-6 text-blue-600" />
             </a>
-            <a
-              href="https://www.instagram.com/vatstechb"
+
+            <a href="https://www.instagram.com/vatstechb"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all"
             >
               <Instagram className="w-6 h-6 text-pink-500" />
             </a>
-            <a
-              href="https://www.x.com/vatstechb"
+
+            <a href="https://www.x.com/vatstechb"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all"
             >
               <Twitter className="w-6 h-6 text-blue-400" />
             </a>
-            <a
-              href="https://linkedin.com/company/vatstechb"
+
+            <a href="https://linkedin.com/company/vatstechb"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all"
             >
               <Linkedin className="w-6 h-6 text-blue-700" />
             </a>
-            <a
-              href="https://wa.me/919576894955"
+
+            <a href="https://wa.me/919576894955"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all"
