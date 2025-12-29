@@ -1,10 +1,17 @@
 'use client'
 import { servicesData } from "@/lib/servicescontent";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { useParams } from "next/navigation";
-import { ArrowLeft, CreditCard, MessageSquare, Phone, Mail, CheckCircle, Shield, Send, User, PhoneCall, Calendar } from "lucide-react";
+import { ArrowLeft, CreditCard, MessageSquare, Phone, Mail, CheckCircle, Shield, Send, User, Loader2, ExternalLink } from "lucide-react";
+
+// Import Razorpay types
+declare global {
+    interface Window {
+        Razorpay: any;
+    }
+}
 
 function toSlug(str: string) {
     return str
@@ -27,12 +34,28 @@ export default function ServiceSlugPage() {
         message: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
     const category = categorySlug ? servicesData[categorySlug] : null;
     const service = category?.services.find(
         (s) => toSlug(s.name) === serviceSlug
     );
+
+    // Load Razorpay script
+    useEffect(() => {
+        if (typeof window !== 'undefined' && !window.Razorpay) {
+            const script = document.createElement('script');
+            script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+            script.async = true;
+            script.onload = () => setRazorpayLoaded(true);
+            script.onerror = () => console.error('Failed to load Razorpay script');
+            document.body.appendChild(script);
+        } else {
+            setRazorpayLoaded(true);
+        }
+    }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -81,14 +104,6 @@ export default function ServiceSlugPage() {
         }
     };
 
-    const handlePayNow = () => {
-        if (!service || service.price === "Custom") {
-            alert('This service requires custom pricing. Please submit the enquiry form first.');
-            return;
-        }
-        alert(`Payment link for ₹${service.price} will be sent to your email within 24 hours.`);
-    };
-
     const initiateWhatsApp = () => {
         const message = `Hi, I'm interested in ${service?.name} service. Please share payment details.`;
         const whatsappUrl = `https://wa.me/919576894955?text=${encodeURIComponent(message)}`;
@@ -97,6 +112,96 @@ export default function ServiceSlugPage() {
 
     const initiatePhoneCall = () => {
         window.location.href = 'tel:+919576894955';
+    };
+
+    // ========== RAZORPAY PAYMENT FUNCTION ==========
+    const handlePayNow = async () => {
+        if (!service || service.price === "Custom") {
+            alert('This service requires custom pricing. Please submit the enquiry form first.');
+            return;
+        }
+
+        // Check if Razorpay key is configured
+        if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+            alert('Payment gateway is not configured. Please contact us via WhatsApp for payment.');
+            initiateWhatsApp();
+            return;
+        }
+
+        // Check if Razorpay script is loaded
+        if (!razorpayLoaded) {
+            alert('Payment system is loading. Please try again in a moment.');
+            return;
+        }
+
+        setIsProcessingPayment(true);
+
+        try {
+            // Convert price to paise (Razorpay accepts amount in smallest currency unit)
+            const priceStr = service.price.toString().replace(/,/g, '');
+            const amountInPaise = Math.round(parseFloat(priceStr) * 100);
+
+            // Razorpay options
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: amountInPaise,
+                currency: "INR",
+                name: "VatsTech Business Solutions",
+                description: `${service.name} - ${category?.title}`,
+                image: "/logo.png", // Your logo
+                handler: function (response: any) {
+                    setIsProcessingPayment(false);
+
+                    // Create success URL
+                    const successUrl = `/payment-success?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}&amount=${service.price}&service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(category?.title || '')}`;
+
+                    // Redirect to success page
+                    window.location.href = successUrl;
+                },
+                prefill: {
+                    // You can prefill customer details if available
+                    name: formData.name || '',
+                    email: formData.email || '',
+                    contact: formData.phone || ''
+                },
+                notes: {
+                    service: service.name,
+                    category: category?.title,
+                    customer_note: formData.message || ''
+                },
+                theme: {
+                    color: "#00A8E8"
+                },
+                modal: {
+                    ondismiss: function () {
+                        setIsProcessingPayment(false);
+                        console.log('Payment modal dismissed');
+                    },
+                    escape: true,
+                    backdropclose: true
+                }
+            };
+
+            // Create Razorpay instance and open checkout
+            const razorpay = new window.Razorpay(options);
+            razorpay.open();
+
+        } catch (error) {
+            console.error('Payment error:', error);
+            setIsProcessingPayment(false);
+            alert('Payment processing failed. Please try again or contact us via WhatsApp.');
+        }
+    };
+    
+    const handleWhatsAppPayment = () => {
+        if (!service || service.price === "Custom") {
+            alert('This service requires custom pricing. Please submit the enquiry form first.');
+            return;
+        }
+
+        const message = `Hi, I want to pay ₹${service.price} for ${service.name} (${category?.title}). Please share payment details.`;
+        const whatsappUrl = `https://wa.me/919576894955?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
     };
 
     if (!category) {
@@ -117,26 +222,10 @@ export default function ServiceSlugPage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
             <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-8 lg:py-12">
-                <div className="mb-6 sm:mb-8">
-                    <nav className="flex items-center gap-2 text-sm sm:text-base">
-                        <Link href="/" className="text-gray-600 hover:text-[#00A8E8]">Home</Link>
-                        <span className="text-gray-400">/</span>
-                        <Link href="/services" className="text-gray-600 hover:text-[#00A8E8]">Services</Link>
-                        <span className="text-gray-400">/</span>
-                        <Link href={`/services/${categorySlug}`} className="text-gray-600 hover:text-[#00A8E8] capitalize">
-                            {category.title}
-                        </Link>
-                        {service && (
-                            <>
-                                <span className="text-gray-400">/</span>
-                                <span className="text-gray-800 font-medium truncate">{service.name}</span>
-                            </>
-                        )}
-                    </nav>
-                </div>
-
                 <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+                    {/* Left Column - Service Details with Payment Button */}
                     <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+                        {/* Service Header */}
                         <header className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 bg-blue-100 rounded-lg">
@@ -150,8 +239,11 @@ export default function ServiceSlugPage() {
                                 {service ? service.desc : category.description}
                             </p>
                         </header>
+
+                        {/* Specific Service Details */}
                         {service ? (
                             <div className="space-y-6">
+                                {/* Pricing Card with Payment Button */}
                                 <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-blue-100">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-4">
                                         <div>
@@ -171,16 +263,58 @@ export default function ServiceSlugPage() {
                                                 }
                                             </p>
                                         </div>
+
+                                        {/* PAYMENT BUTTON */}
                                         {service.price !== "Custom" && (
-                                            <button
-                                                onClick={handlePayNow}
-                                                className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors shadow-md hover:shadow-lg whitespace-nowrap"
-                                            >
-                                                <CreditCard className="w-5 h-5" />
-                                                Pay Now
-                                            </button>
+                                            <div className="flex flex-col gap-3">
+                                                <button
+                                                    onClick={handlePayNow}
+                                                    disabled={isProcessingPayment || !razorpayLoaded}
+                                                    className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors shadow-md hover:shadow-lg whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed min-w-[140px]"
+                                                >
+                                                    {isProcessingPayment ? (
+                                                        <>
+                                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                                            Processing...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <CreditCard className="w-5 h-5" />
+                                                            Pay Now
+                                                        </>
+                                                    )}
+                                                </button>
+
+                                                {/* Fallback WhatsApp Payment Button */}
+                                                <button
+                                                    onClick={handleWhatsAppPayment}
+                                                    className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-2 rounded-lg font-semibold text-xs transition-colors"
+                                                >
+                                                    <MessageSquare className="w-4 h-4" />
+                                                    Pay via WhatsApp
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
+
+                                    {/* Payment Methods Info */}
+                                    {service.price !== "Custom" && (
+                                        <div className="mt-4 pt-4 border-t border-blue-200">
+                                            <p className="text-sm text-gray-600 mb-2">Accepted Payment Methods:</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="px-3 py-1 bg-white rounded-full text-xs font-medium border">Credit/Debit Card</span>
+                                                <span className="px-3 py-1 bg-white rounded-full text-xs font-medium border">UPI</span>
+                                                <span className="px-3 py-1 bg-white rounded-full text-xs font-medium border">Net Banking</span>
+                                                <span className="px-3 py-1 bg-white rounded-full text-xs font-medium border">Wallet</span>
+                                            </div>
+                                            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                                                <Shield className="w-3 h-3" />
+                                                Secure payment powered by Razorpay
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Custom Pricing Message */}
                                     {service.price === "Custom" && (
                                         <div className="mt-4 p-3 bg-blue-100 border border-blue-200 rounded-lg">
                                             <p className="text-blue-800 text-sm sm:text-base text-center">
@@ -189,6 +323,8 @@ export default function ServiceSlugPage() {
                                         </div>
                                     )}
                                 </div>
+
+                                {/* Service Features */}
                                 <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
                                     <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">What's Included</h2>
                                     <ul className="space-y-3">
@@ -207,8 +343,39 @@ export default function ServiceSlugPage() {
                                         ))}
                                     </ul>
                                 </div>
+
+                                {/* Payment Process Info */}
+                                {service.price !== "Custom" && (
+                                    <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                                        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Payment Process</h2>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
+                                                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                                    <span className="font-bold text-blue-600">1</span>
+                                                </div>
+                                                <h3 className="font-semibold text-gray-800 mb-1">Click Pay Now</h3>
+                                                <p className="text-sm text-gray-600">Choose your payment method</p>
+                                            </div>
+                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
+                                                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                                    <span className="font-bold text-blue-600">2</span>
+                                                </div>
+                                                <h3 className="font-semibold text-gray-800 mb-1">Complete Payment</h3>
+                                                <p className="text-sm text-gray-600">Safe & secure Razorpay checkout</p>
+                                            </div>
+                                            <div className="text-center p-4 bg-blue-50 rounded-lg">
+                                                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                                    <span className="font-bold text-blue-600">3</span>
+                                                </div>
+                                                <h3 className="font-semibold text-gray-800 mb-1">Get Confirmation</h3>
+                                                <p className="text-sm text-gray-600">Instant email & WhatsApp confirmation</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ) : (
+                            /* Service List */
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {category.services.map((item, i) => (
                                     <Link
@@ -230,7 +397,10 @@ export default function ServiceSlugPage() {
                             </div>
                         )}
                     </div>
+
+                    {/* Right Column - MESSAGE FORM ONLY */}
                     <div className="space-y-6">
+                        {/* Message Form Card */}
                         <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm sticky top-6">
                             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center">
                                 Get a Quote
@@ -238,6 +408,7 @@ export default function ServiceSlugPage() {
                             <p className="text-gray-600 text-sm text-center mb-6">
                                 Fill in your details and we'll contact you within 24 hours
                             </p>
+
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -298,7 +469,10 @@ export default function ServiceSlugPage() {
                                         }`}
                                 >
                                     {isSubmitting ? (
-                                        'Processing...'
+                                        <>
+                                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                                            Sending...
+                                        </>
                                     ) : (
                                         <>
                                             <Send className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -319,6 +493,8 @@ export default function ServiceSlugPage() {
                                     </div>
                                 )}
                             </form>
+
+                            {/* Alternative Contact Options */}
                             <div className="mt-6 pt-6 border-t border-gray-200">
                                 <p className="text-center text-gray-600 text-sm mb-4">Need immediate assistance?</p>
                                 <div className="grid grid-cols-2 gap-3">
