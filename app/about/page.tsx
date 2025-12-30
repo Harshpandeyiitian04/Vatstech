@@ -1,13 +1,11 @@
 'use client'
 import { stats, values } from '@/lib/content';
-import { CheckCircle2, Target, Eye, Award, Users, Briefcase, TrendingUp, Shield } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useNavigation } from '@/lib/functions';
+import { CheckCircle2, Target, Eye } from 'lucide-react';
 
 export default function AboutPage() {
-    const router = useRouter()
-    function handleContact() {
-        router.push('/contact')
-    }
+
+    const { handleContact } = useNavigation();
 
     return (
         <div className="min-h-screen bg-white">

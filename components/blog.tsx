@@ -3,24 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRightIcon, CheckCircle2Icon, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigation } from "@/lib/functions";
 
 export function Blog() {
     const [activeCategory, setActiveCategory] = useState<CategoryKey | null>(null);
-    const router = useRouter()
 
-    function slugify(str: string) {
-        return str
-            .toLowerCase()
-            .replace(/&/g, "and")
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
-    }
-
-    function handleGetit(category: string, service: string) {
-        const serviceSlug = slugify(service);
-        router.push(`/services/${category}/${serviceSlug}`);
-    }
+    const { handleGetit } = useNavigation();
 
     return (
         <>

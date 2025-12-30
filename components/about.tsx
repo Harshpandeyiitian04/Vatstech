@@ -1,13 +1,12 @@
 import { services } from "@/lib/content";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { useNavigation } from "@/lib/functions";
 
 export function About() {
-    const router = useRouter()
-    function handleAbout() {
-        router.push('/about')
-    }
+
+    const { handleAbout } = useNavigation();
+
     return (
         <>
             <section id="about" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#F8FBFD]">

@@ -6,20 +6,13 @@ import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { useParams } from "next/navigation";
 import { ArrowLeft, CreditCard, MessageSquare, Phone, Mail, CheckCircle, Shield, Send, User, Loader2, ExternalLink } from "lucide-react";
+import { sendEmail, slugify } from "@/lib/functions";
 
 // Import Razorpay types
 declare global {
     interface Window {
         Razorpay: any;
     }
-}
-
-function toSlug(str: string) {
-    return str
-        .toLowerCase()
-        .replace(/&/g, "and")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
 }
 
 export default function ServiceSlugPage() {
@@ -41,22 +34,22 @@ export default function ServiceSlugPage() {
 
     const category = categorySlug ? servicesData[categorySlug] : null;
     const service = category?.services.find(
-        (s) => toSlug(s.name) === serviceSlug
+        (s) => slugify(s.name) === serviceSlug
     );
 
     // Get service details based on service name
     const getServiceDetails = () => {
         if (!service) return null;
-        
+
         // Create a key from service name for lookup
         const detailKey = service.name.toLowerCase().replace(/[^a-z0-9\s]/g, '');
-        
+
         // Find matching service details
-        const matchedKey = Object.keys(serviceDetails).find(key => 
-            detailKey.includes(key.toLowerCase()) || 
+        const matchedKey = Object.keys(serviceDetails).find(key =>
+            detailKey.includes(key.toLowerCase()) ||
             key.toLowerCase().includes(detailKey)
         );
-        
+
         return matchedKey ? serviceDetails[matchedKey] : null;
     };
 
@@ -96,20 +89,15 @@ export default function ServiceSlugPage() {
         setSubmitStatus('idle');
 
         try {
-            const result = await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
-                    message: formData.message || `Interested in ${service?.name || 'Service'}. Please contact me.`,
-                    service: service?.name || 'General Inquiry',
-                    category: category?.title || 'N/A',
-                    title: 'Service Inquiry'
-                },
-                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-            );
+            const result = await sendEmail({
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                message: formData.message || `Interested in ${service?.name || 'Service'}. Please contact me.`,
+                service: service?.name || 'General Inquiry',
+                category: category?.title || 'N/A',
+                title: 'Service Inquiry'
+            });
 
             if (result.text === 'OK') {
                 setSubmitStatus('success');
@@ -211,7 +199,7 @@ export default function ServiceSlugPage() {
             alert('Payment processing failed. Please try again or contact us via WhatsApp.');
         }
     };
-    
+
     const handleWhatsAppPayment = () => {
         if (!service || service.price === "Custom") {
             alert('This service requires custom pricing. Please submit the enquiry form first.');
@@ -415,7 +403,7 @@ export default function ServiceSlugPage() {
                                 {category.services.map((item, i) => (
                                     <Link
                                         key={i}
-                                        href={`/services/${categorySlug}/${toSlug(item.name)}`}
+                                        href={`/services/${categorySlug}/${slugify(item.name)}`}
                                         className="group bg-white rounded-xl p-4 hover:shadow-md border border-gray-200 hover:border-[#00A8E8] transition-all"
                                     >
                                         <div className="flex justify-between items-start mb-2">

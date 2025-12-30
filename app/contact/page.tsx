@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import emailjs from '@emailjs/browser';
+import { sendEmail } from '@/lib/functions';
 
-export default function ContactPage(){
+export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,32 +13,19 @@ export default function ContactPage(){
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: '',
-          message: formData.message,
-          title: 'Website Contact Form'
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      );
+      const result = await sendEmail({
+        name: formData.name,
+        email: formData.email,
+        phone: '',
+        message: formData.message,
+        title: 'Website Contact Form'
+      })
 
       if (result.text === 'OK') {
         setSubmitStatus('success');
@@ -51,6 +38,17 @@ export default function ContactPage(){
       setIsSubmitting(false);
     }
   };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">

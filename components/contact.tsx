@@ -1,14 +1,9 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import emailjs from '@emailjs/browser';
+import { sendEmail, useNavigation } from "@/lib/functions";
 
 export function Contact() {
-    const router = useRouter()
-    function handleContact() {
-        router.push('/contact')
-    }
     const [formData, setFormData] = useState({
         name: '',
         number: '',
@@ -16,13 +11,7 @@ export function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+    const { handleContact } = useNavigation();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,19 +19,13 @@ export function Contact() {
         setSubmitStatus('idle');
 
         try {
-            const result = await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-                {
-                    name: formData.name,
-                    email: '',
-                    phone: formData.number,
-                    message: 'Quick contact request - please call back',
-                    title: 'Quick Contact Request'
-                },
-                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-            );
-
+            const result = await sendEmail({
+                name: formData.name,
+                email: '',
+                phone: formData.number,
+                message: 'Quick contact request - please call back',
+                title: 'Quick Contact Request'
+            })
             if (result.text === 'OK') {
                 setSubmitStatus('success');
                 setFormData({ name: '', number: '' });
@@ -54,6 +37,17 @@ export function Contact() {
             setIsSubmitting(false);
         }
     };
+
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
 
     return (
         <>

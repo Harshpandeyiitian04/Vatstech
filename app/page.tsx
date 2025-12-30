@@ -8,19 +8,6 @@ import { Contact } from '@/components/contact';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function Home() {
-  // const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // const scrollLeft = () => {
-  //   if (scrollContainerRef.current) {
-  //     scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-  //   }
-  // };
-
-  // const scrollRight = () => {
-  //   if (scrollContainerRef.current) {
-  //     scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-  //   }
-  // };
   
   return (
     <>

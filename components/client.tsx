@@ -1,13 +1,12 @@
 import { benefits } from "@/lib/content";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { useNavigation } from "@/lib/functions";
 
 export function Client() {
-    const router = useRouter()
-    function handleExplore() {
-        router.push('/services')
-    }
+
+    const { handleExplore } = useNavigation();
+
     return (
         <>
             <section id="why-us" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-white to-[#F8FBFD]">

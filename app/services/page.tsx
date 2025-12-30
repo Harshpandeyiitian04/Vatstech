@@ -1,28 +1,15 @@
 'use client'
+import { useNavigation } from '@/lib/functions';
 import { Service, servicesData } from '@/lib/servicescontent';
 import { ArrowRight, Check, ChevronDown, ChevronUp } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ServicesPage() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  const router = useRouter();
-
-  function slugify(str: string) {
-    return str
-      .toLowerCase()
-      .replace(/&/g, "and")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  }
-
-  function handleGetit(category: string, service: string) {
-    const serviceSlug = slugify(service);
-    router.push(`/services/${category}/${serviceSlug}`);
-  }
+  const { handleGetit ,handleContact } = useNavigation()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,9 +37,6 @@ export default function ServicesPage() {
     setExpandedCategory(expandedCategory === category ? null : category);
   };
 
-  function handleContact() {
-    router.push("/contact");
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
@@ -94,8 +78,8 @@ export default function ServicesPage() {
                 id={`category-${key}`}
                 data-animate
                 className={`bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg overflow-hidden transition-all duration-700 ${visibleSections[`category-${key}`]
-                    ? 'opacity-100 translate-x-0'
-                    : 'opacity-0 -translate-x-10'
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 -translate-x-10'
                   }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >

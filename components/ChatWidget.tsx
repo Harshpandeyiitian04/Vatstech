@@ -1,12 +1,12 @@
 "use client"
-import React, { useState, useRef, useEffect } from 'react';
+// import React, { useState, useRef, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function ChatWidget() {
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
-  const [text, setText] = useState('');
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  // const [open, setOpen] = useState(false);
+  // const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
+  // const [text, setText] = useState('');
+  // const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <>

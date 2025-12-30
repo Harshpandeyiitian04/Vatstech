@@ -1,15 +1,9 @@
-import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
+import { useNavigation } from "@/lib/functions";
 
 export function Intro() {
-    const router = useRouter()
-
-    function handleExplore() {
-        router.push('/services')
-    }
-    function handleContact() {
-        router.push('/contact')
-    }
+  const { handleExplore } = useNavigation();
+  const { handleContact } = useNavigation();
 
     return (
         <>
