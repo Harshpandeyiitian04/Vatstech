@@ -121,21 +121,24 @@ export default function ServiceSlugPage() {
         window.location.href = 'tel:+919576894955';
     };
 
-    // ========== RAZORPAY PAYMENT FUNCTION ==========
+    // In your ServiceSlugPage component
+    const generateReceipt = () => {
+        const timestamp = Date.now();
+        const serviceCode = service?.name
+            ?.replace(/[^a-zA-Z]/g, '')
+            .substring(0, 5)
+            .toUpperCase();
+        return `VT${serviceCode}${timestamp.toString().slice(-6)}`;
+    };
+
+
+    // In your ServiceSlugPage component - update handlePayNow function
     const handlePayNow = async () => {
         if (!service || service.price === "Custom") {
             alert('This service requires custom pricing. Please submit the enquiry form first.');
             return;
         }
 
-        // Check if Razorpay key is configured
-        if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
-            alert('Payment gateway is not configured. Please contact us via WhatsApp for payment.');
-            initiateWhatsApp();
-            return;
-        }
-
-        // Check if Razorpay script is loaded
         if (!razorpayLoaded) {
             alert('Payment system is loading. Please try again in a moment.');
             return;
@@ -144,29 +147,52 @@ export default function ServiceSlugPage() {
         setIsProcessingPayment(true);
 
         try {
-            // Convert price to paise (Razorpay accepts amount in smallest currency unit)
+            // Convert price to number
             const priceStr = service.price.toString().replace(/,/g, '');
-            const amountInPaise = Math.round(parseFloat(priceStr) * 100);
+            const amount = parseFloat(priceStr);
 
-            // Razorpay options
+
+            // Then in handlePayNow:
+            const orderResponse = await fetch('/api/create-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    receipt: generateReceipt(), // Add this
+                    notes: {
+                        service: service.name,
+                        category: category?.title,
+                        customerName: formData.name || 'Customer',
+                        customerEmail: formData.email || 'customer@example.com',
+                    },
+                }),
+            });
+
+            const orderData = await orderResponse.json();
+
+            if (!orderData.success) {
+                throw new Error(orderData.error || 'Failed to create order');
+            }
+
+            // Step 2: Initialize Razorpay checkout
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-                amount: amountInPaise,
-                currency: "INR",
+                amount: orderData.order.amount,
+                currency: orderData.order.currency,
                 name: "VatsTech Business Solutions",
-                description: `${service.name} - ${category?.title}`,
-                image: "/logo.png", // Your logo
+                description: `${service.name}`,
+                image: "/logo.jpg", // Make sure you have a logo.png in public folder
+                order_id: orderData.order.id,
                 handler: function (response: any) {
                     setIsProcessingPayment(false);
 
-                    // Create success URL
-                    const successUrl = `/payment-success?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}&amount=${service.price}&service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(category?.title || '')}`;
-
-                    // Redirect to success page
+                    // Handle successful payment
+                    const successUrl = `/payment-success?payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}&amount=${amount}&service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(category?.title || '')}`;
                     window.location.href = successUrl;
                 },
                 prefill: {
-                    // You can prefill customer details if available
                     name: formData.name || '',
                     email: formData.email || '',
                     contact: formData.phone || ''
@@ -174,7 +200,6 @@ export default function ServiceSlugPage() {
                 notes: {
                     service: service.name,
                     category: category?.title,
-                    customer_note: formData.message || ''
                 },
                 theme: {
                     color: "#00A8E8"
@@ -182,21 +207,17 @@ export default function ServiceSlugPage() {
                 modal: {
                     ondismiss: function () {
                         setIsProcessingPayment(false);
-                        console.log('Payment modal dismissed');
-                    },
-                    escape: true,
-                    backdropclose: true
+                    }
                 }
             };
 
-            // Create Razorpay instance and open checkout
-            const razorpay = new window.Razorpay(options);
-            razorpay.open();
+            const razorpayInstance = new window.Razorpay(options);
+            razorpayInstance.open();
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Payment error:', error);
             setIsProcessingPayment(false);
-            alert('Payment processing failed. Please try again or contact us via WhatsApp.');
+            alert(`Payment failed: ${error.message}. Please try again or contact us via WhatsApp.`);
         }
     };
 
