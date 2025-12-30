@@ -1,5 +1,6 @@
 'use client'
 import { servicesData } from "@/lib/servicescontent";
+import { serviceDetails } from "@/lib/servicescontent"; // Import service details
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
@@ -42,6 +43,24 @@ export default function ServiceSlugPage() {
     const service = category?.services.find(
         (s) => toSlug(s.name) === serviceSlug
     );
+
+    // Get service details based on service name
+    const getServiceDetails = () => {
+        if (!service) return null;
+        
+        // Create a key from service name for lookup
+        const detailKey = service.name.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+        
+        // Find matching service details
+        const matchedKey = Object.keys(serviceDetails).find(key => 
+            detailKey.includes(key.toLowerCase()) || 
+            key.toLowerCase().includes(detailKey)
+        );
+        
+        return matchedKey ? serviceDetails[matchedKey] : null;
+    };
+
+    const serviceDetail = getServiceDetails();
 
     // Load Razorpay script
     useEffect(() => {
@@ -236,7 +255,7 @@ export default function ServiceSlugPage() {
                                 </h1>
                             </div>
                             <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
-                                {service ? service.desc : category.description}
+                                {service ? (serviceDetail?.description || service.desc) : category.description}
                             </p>
                         </header>
 
@@ -324,25 +343,41 @@ export default function ServiceSlugPage() {
                                     )}
                                 </div>
 
-                                {/* Service Features */}
+                                {/* Service Features - What's Included Section */}
                                 <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
                                     <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">What's Included</h2>
-                                    <ul className="space-y-3">
-                                        {[
-                                            "Dedicated account manager",
-                                            "Complete documentation support",
-                                            "Regular progress updates",
-                                            "Post-service support",
-                                            "100% satisfaction guarantee",
-                                            "Timely delivery commitment"
-                                        ].map((feature, index) => (
-                                            <li key={index} className="flex items-start gap-3">
-                                                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                                                <span className="text-gray-700">{feature}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+
+                                    {/* Service Highlights */}
+                                    <div className="mt-6 pt-6 border-t border-gray-200">
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-4">Service Highlights</h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                            <div className="bg-blue-50 p-4 rounded-lg">
+                                                <div className="text-blue-600 font-bold mb-1">Expert Team</div>
+                                                <div className="text-sm text-gray-600">Experienced professionals handling your case</div>
+                                            </div>
+                                            <div className="bg-blue-50 p-4 rounded-lg">
+                                                <div className="text-blue-600 font-bold mb-1">Fast Processing</div>
+                                                <div className="text-sm text-gray-600">Quick turnaround time guaranteed</div>
+                                            </div>
+                                            <div className="bg-blue-50 p-4 rounded-lg">
+                                                <div className="text-blue-600 font-bold mb-1">Transparent Pricing</div>
+                                                <div className="text-sm text-gray-600">No hidden charges or extra fees</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {/* Detailed Description Section */}
+                                {serviceDetail?.details && (
+                                    <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                                        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Detailed Overview</h2>
+                                        <div className="prose max-w-none">
+                                            <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
+                                                {serviceDetail.details}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Payment Process Info */}
                                 {service.price !== "Custom" && (
@@ -401,7 +436,7 @@ export default function ServiceSlugPage() {
                     {/* Right Column - MESSAGE FORM ONLY */}
                     <div className="space-y-6">
                         {/* Message Form Card */}
-                        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm sticky top-6">
+                        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm sticky top-35">
                             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center">
                                 Get a Quote
                             </h2>
