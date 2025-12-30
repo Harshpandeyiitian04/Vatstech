@@ -1,7 +1,7 @@
 'use client'
 import { useNavigation } from '@/lib/functions';
 import { Service, servicesData } from '@/lib/servicescontent';
-import { ArrowRight, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, Check, ChevronUpCircle, ChevronDownCircle} from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function ServicesPage() {
@@ -97,9 +97,9 @@ export default function ServicesPage() {
                     </div>
                   </div>
                   {isExpanded ? (
-                    <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+                    <ChevronUpCircle className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+                    <ChevronDownCircle className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   )}
                 </button>
                 <div

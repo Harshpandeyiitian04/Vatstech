@@ -424,7 +424,7 @@ export default function ServiceSlugPage() {
                     {/* Right Column - MESSAGE FORM ONLY */}
                     <div className="space-y-6">
                         {/* Message Form Card */}
-                        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm sticky top-35">
+                        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm sticky top-21">
                             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center">
                                 Get a Quote
                             </h2>
