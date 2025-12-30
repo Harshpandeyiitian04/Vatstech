@@ -28,7 +28,6 @@ export default function Home() {
       <Blog/>
       <About/>
       <Client/>
-      {/* <Insight/> */}
       <Contact/>
     </>
   );
