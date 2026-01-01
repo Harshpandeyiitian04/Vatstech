@@ -21,10 +21,15 @@ export default function ServiceSlugPage() {
     const categorySlug = slug?.[0] ?? null;
     const serviceSlug = slug?.[1] ?? null;
     const [userName, setUserName] = useState<string | null>(null);
+    const [userEmail, setUserEmail] = useState<string | null>(null);
 
     useEffect(() => {
         const name = localStorage.getItem('userName') || sessionStorage.getItem('userName');
-        if (name) setUserName(name);
+        const email = localStorage.getItem('email') || sessionStorage.getItem('email');
+        if (name||email) {
+            setUserName(name) ;
+            setUserEmail(email);
+        };
     }, []);
 
     const [formData, setFormData] = useState({
@@ -127,7 +132,7 @@ export default function ServiceSlugPage() {
                         service: service.name,
                         category: category?.title,
                         customerName: formData.name || userName,
-                        customerEmail: formData.email || 'customer@example.com',
+                        customerEmail: userEmail || 'vatstechb@gmail.com',
                     },
                 }),
             });
