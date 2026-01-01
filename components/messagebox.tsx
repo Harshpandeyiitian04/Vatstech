@@ -108,7 +108,7 @@ export default function Messagebox({title,servicename,categoryname,formData,setF
                 </div>
 
                 <div>
-                    <MessageCircleWarning className="absolute left-9 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <MessageCircleWarning className="translate-x-3 transform translate-y-9 w-5 h-5 text-gray-400" />
                     <textarea
                         name="message"
                         placeholder="Type your message..."
