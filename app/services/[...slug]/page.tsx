@@ -148,8 +148,8 @@ export default function ServiceSlugPage() {
 
         try {
             // Convert price to number
-            const priceStr = service.price.toString().replace(/,/g, '');
-            const amount = parseFloat(priceStr);
+            const priceStr = service.price.toString().replace(/,/g, '') ;
+            const amount = 1.18*parseFloat(priceStr);
 
 
             // Then in handlePayNow:
@@ -281,7 +281,7 @@ export default function ServiceSlugPage() {
                                                     {service.price === "Custom" ? "Custom" : `₹${service.price}`}
                                                 </span>
                                                 {service.price !== "Custom" && (
-                                                    <span className="text-sm text-gray-500">+ GST</span>
+                                                    <span className="text-sm text-gray-500">+18% GST</span>
                                                 )}
                                             </div>
                                             <p className="text-gray-600 text-sm sm:text-base mt-2">
