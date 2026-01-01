@@ -1,10 +1,10 @@
 'use client'
 import { servicesData } from "@/lib/servicescontent";
-import { serviceDetails } from "@/lib/servicescontent"; 
+import { serviceDetails } from "@/lib/servicescontent";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft, CreditCard, MessageSquare, Phone, Shield, Loader2} from "lucide-react";
+import { ArrowLeft, CreditCard, MessageSquare, Phone, Shield, Loader2 } from "lucide-react";
 import { slugify } from "@/lib/functions";
 import Messagebox from "@/components/messagebox";
 
@@ -20,6 +20,12 @@ export default function ServiceSlugPage() {
     const slug = params.slug as string[];
     const categorySlug = slug?.[0] ?? null;
     const serviceSlug = slug?.[1] ?? null;
+    const [userName, setUserName] = useState<string | null>(null);
+
+    useEffect(() => {
+        const name = localStorage.getItem('userName') || sessionStorage.getItem('userName');
+        if (name) setUserName(name);
+    }, []);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -104,8 +110,8 @@ export default function ServiceSlugPage() {
 
         try {
             // Convert price to number
-            const priceStr = service.price.toString().replace(/,/g, '') ;
-            const amount = 1.18*parseFloat(priceStr);
+            const priceStr = service.price.toString().replace(/,/g, '');
+            const amount = 1.18 * parseFloat(priceStr);
 
 
             // Then in handlePayNow:
@@ -120,7 +126,7 @@ export default function ServiceSlugPage() {
                     notes: {
                         service: service.name,
                         category: category?.title,
-                        customerName: formData.name || 'Customer',
+                        customerName: formData.name || userName,
                         customerEmail: formData.email || 'customer@example.com',
                     },
                 }),
@@ -408,7 +414,7 @@ export default function ServiceSlugPage() {
                             <p className="text-gray-600 text-sm text-center mb-6">
                                 Fill in your details and we'll contact you within 24 hours
                             </p>
-,
+                            ,
                             <Messagebox title='Service Inquiry' servicename={service?.name || 'General Inquiry'} categoryname={category?.title || 'N/A'} formData={formData} setFormData={setFormData} />
 
                             {/* Alternative Contact Options */}
