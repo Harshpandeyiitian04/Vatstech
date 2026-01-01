@@ -2,52 +2,17 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { sendEmail, useNavigation } from "@/lib/functions";
+import Messagebox from "./messagebox";
 
 export function Contact() {
     const [formData, setFormData] = useState({
         name: '',
-        number: '',
+        email: '',
+        phone: '',
+        message: ''
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     const { handleContact } = useNavigation();
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitStatus('idle');
-
-        try {
-            const result = await sendEmail({
-                name: formData.name,
-                email: '',
-                phone: formData.number,
-                message: 'Quick contact request - please call back',
-                title: 'Quick Contact Request'
-            })
-            if (result.text === 'OK') {
-                setSubmitStatus('success');
-                setFormData({ name: '', number: '' });
-            }
-        } catch (error) {
-            console.error('EmailJS Error:', error);
-            setSubmitStatus('error');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
 
     return (
         <>
@@ -86,50 +51,7 @@ export function Contact() {
                                 <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
                                     Send a Message
                                 </h3>
-                                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            placeholder="Your Name"
-                                            value={formData.name}
-                                            onChange={handleInputChange}
-                                            required
-                                            className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
-                                        />
-                                    </div>
-                                    <div>
-                                        <input
-                                            type="tel"
-                                            name="number"
-                                            placeholder="Your Phone number..."
-                                            value={formData.number}
-                                            onChange={handleInputChange}
-                                            required
-                                            className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className={`w-full py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-sm sm:text-base transition-all ${isSubmitting
-                                            ? 'bg-gray-400 cursor-not-allowed'
-                                            : 'bg-cyan-600 hover:bg-cyan-700 text-white hover:scale-[1.02]'
-                                            }`}
-                                    >
-                                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                                    </button>
-                                </form>
-                                {submitStatus === 'success' && (
-                                    <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm sm:text-base">
-                                        Message sent successfully! We'll get back to you soon.
-                                    </div>
-                                )}
-                                {submitStatus === 'error' && (
-                                    <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm sm:text-base">
-                                        Oops! Something went wrong. Please try again.
-                                    </div>
-                                )}
+                                <Messagebox title='Quick Contact Request' servicename="" categoryname="" formData={formData} setFormData={setFormData} />
                             </div>
                         </div>
                         <Button

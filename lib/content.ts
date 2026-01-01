@@ -144,7 +144,7 @@ export const insight = [
 export const stats = [
   { number: "2025", label: "Founded", icon: Award },
   { number: "Pan-India", label: "Service Coverage", icon: TrendingUp },
-  { number: "50+", label: "Services Offered", icon: Briefcase },
+  { number: "40+", label: "Services Offered", icon: Briefcase },
   { number: "100+", label: "Happy Clients", icon: Users },
 ];
 
