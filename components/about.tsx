@@ -43,13 +43,13 @@ export function About() {
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent className="text-center pt-0 px-3 sm:px-6">
-                                            <Button
+                                            {/* <Button
                                                 onClick={handleAbout}
                                                 variant="link"
                                                 className="text-[#00A8E8] hover:text-[#0095D1] font-semibold text-sm sm:text-base p-0 h-auto"
                                             >
                                                 Learn More
-                                            </Button>
+                                            </Button> */}
                                         </CardContent>
                                     </Card>
                                 ))}
