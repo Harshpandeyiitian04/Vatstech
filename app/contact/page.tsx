@@ -13,8 +13,8 @@ export default function ContactPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 sm:py-16 md:py-20 px-4">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-50">
+      <div className="bg-linear-to-r from-blue-600 to-blue-800 text-white py-12 sm:py-16 md:py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-3xl xs:text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
             Get In Touch
@@ -32,7 +32,7 @@ export default function ContactPage() {
             </h2>
             <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-lg shadow-sm sm:shadow-md">
-                <Mail className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <Mail className="w-5 h-5 text-blue-600 shrink-0" />
                 <div className="min-w-0">
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Email</p>
                   <a href="mailto:info@vatstech.in" className="text-blue-600 hover:underline text-sm sm:text-base truncate">
@@ -41,7 +41,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-lg shadow-sm sm:shadow-md">
-                <Phone className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-blue-600 shrink-0" />
                 <div>
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Phone</p>
                   <a href="tel:+919576894955" className="text-blue-600 hover:underline text-sm sm:text-base">
@@ -50,14 +50,14 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-lg shadow-sm sm:shadow-md">
-                <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-blue-600 shrink-0" />
                 <div>
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Location</p>
                   <p className="text-gray-600 text-sm sm:text-base">Patna, Bihar, India</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-lg shadow-sm sm:shadow-md">
-                <Send className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                <Send className="w-5 h-5 text-blue-600 shrink-0" />
                 <div>
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Website</p>
                   <a href="https://www.vatstech.in" className="text-blue-600 hover:underline text-sm sm:text-base">
