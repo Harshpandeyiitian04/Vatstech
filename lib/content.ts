@@ -145,7 +145,7 @@ export const stats = [
   { number: "2025", label: "Founded", icon: Award },
   { number: "Pan-India", label: "Service Coverage", icon: TrendingUp },
   { number: "40+", label: "Services Offered", icon: Briefcase },
-  { number: "100+", label: "Happy Clients", icon: Users },
+  { number: "50+", label: "Happy Clients", icon: Users },
 ];
 
 export const values = [
@@ -179,7 +179,7 @@ export const benefits = [
   "Startup India Certified Company",
   "Complete Business & IT Solutions Under One Roof",
   "100% Transparent & Affordable Pricing",
-  "Trusted by 500+ Startups, SMEs & Institutions",
+  "Startups, SMEs & Institutions",
   "Proven Expertise with Pan India Service",
   "Dedicated Support & Fast Delivery",
 ];

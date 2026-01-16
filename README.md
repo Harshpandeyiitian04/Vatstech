@@ -1,43 +1,104 @@
+
 # Vatstech
 
-> A simple, modern web platform with user accounts, secure authentication, and an AI demo chatbot.
+Vatstech is a modern web application designed to provide users with insights, services, and seamless interactions related to VAT and business technology. Built using Next.js, React, and Prisma, the app offers a robust platform for users to explore services, read insightful content, and manage orders securely.
 
-This README explains how to run, test, and deploy the Vatstech app in clear, simple steps. It is written for Harsh Pandey and anyone who wants to get the project running quickly.
+## Live URL
+
+Access the live application at: [vatstech.vercel.app](https://vatstech.vercel.app/)
 
 ---
 
 ## Features
-- User signup and login with password hashing (bcrypt).
-- Secure server-side JWT stored in an httpOnly cookie for authentication.
-- API routes for `signup`, `login`, and `logout`.
-- Floating AI chat widget (client-side demo) on the home page.
-- Built with Next.js (App Router) and Prisma for database access.
 
-## Tech stack
-- Next.js 16+ (React 19)
-- Prisma 7 (Postgres adapter)
-- PostgreSQL (any hosted instance or Vercel Postgres)
-- bcryptjs for password hashing
-- jsonwebtoken for JWT signing
-- Axios for client HTTP requests
-- Tailwind CSS for UI (via project styles)
+- **Home Page:** Introduction to Vatstech and its offerings.
+- **About Page:** Information about the company and its mission.
+- **Contact Page:** Users can reach out for inquiries or support.
+- **Insight Page:** Provides valuable articles and insights related to VAT and technology.
+- **Services Page:** Explore a variety of services, each with detailed descriptions and dynamic routing for service details.
+- **Authentication:** Secure login, signup, and logout functionality.
+- **Order Creation:** Users can create orders for services.
+- **Payment Success:** Confirmation page after successful payments.
+- **API Endpoints:** Includes endpoints for order creation, authentication, and webhook handling.
+- **Chat Widget:** Real-time chat support for user queries.
+- **Modern UI:** Built with reusable components for buttons, cards, sheets, and more.
+
+## Tech Stack
+
+- **Next.js:** Server-side rendering and routing.
+- **React:** Component-based UI development.
+- **Prisma:** Database ORM for managing data and migrations.
+- **PostCSS:** CSS processing for modern styling.
+- **ESLint:** Code linting for quality and consistency.
+- **TypeScript:** Type safety across the codebase.
+
+## Folder Structure
+
+- `app/` - Main application pages and API routes.
+- `components/` - Reusable UI and functional components.
+- `lib/` - Utility functions and content management.
+- `prisma/` - Database schema and migrations.
+- `public/` - Static files and assets.
+
+## Getting Started
+
+1. **Clone the repository:**
+	```powershell
+	git clone https://github.com/Harshpandeyiitian04/Vatstech.git
+	cd Vatstech
+	```
+2. **Install dependencies:**
+	```powershell
+	npm install
+	```
+3. **Set up environment variables:**
+	- Configure your database and other secrets in `.env`.
+4. **Run the development server:**
+	```powershell
+	npm run dev
+	```
+5. **Access locally:**
+	- Visit `http://localhost:3000` in your browser.
+
+## API Routes
+
+- `POST /api/signup` — create a new user (expects `name`, `email`, `phone`, `password`). Returns 201 on success. Returns 409 if the email already exists.
+- `POST /api/login` — authenticate a user (expects `email`, `password`). On success sets an httpOnly `token` cookie and returns the user object.
+- `POST /api/logout` — clears the `token` cookie.
+- `POST /api/create-order` — create a new order for a service.
+- `POST /api/webhook` — handle payment or external service webhooks.
+
+## Deployment
+
+1. Push your repository to GitHub.
+2. Create a Vercel project and connect to the repository.
+3. Add Environment Variables in Vercel (Project Settings → Environment Variables):
+	- `DATABASE_URL` — your production Postgres connection string (do NOT use localhost).
+	- `JWT_SECRET` — your production JWT secret.
+4. Build command recommendation:
+	```powershell
+	npx prisma generate && npm run build
+	```
+	Or ensure `postinstall` runs `prisma generate` (the project already contains a `postinstall` script).
+5. Deploy. If the build fails due to database connectivity, ensure `DATABASE_URL` is set and reachable from Vercel.
+
+## Security Notes
+
+- JWT tokens are stored in httpOnly cookies for security.
+- Keep secrets safe and rotate periodically.
+- Use HTTPS and secure cookie flags in production.
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements and new features.
+
+## License
+
+This project is licensed under the MIT License.
 
 ---
 
-## Quick setup (development)
-The steps below assume you are on Windows PowerShell and have Node.js and npm installed.
-
-1. Clone the repo and enter the folder
-
-```powershell
-git clone https://github.com/Harshpandeyiitian04/Vatstech.git
-cd Vatstech
-```
-
-2. Install dependencies
-
-```powershell
-npm install
+For more information, visit the [live site](https://vatstech.vercel.app/) or contact the team via the Contact page.
 ```
 
 3. Create a `.env` file in the project root with the required values (do NOT commit this file):
