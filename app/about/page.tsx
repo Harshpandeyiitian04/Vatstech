@@ -2,14 +2,19 @@
 import { stats, values } from '@/lib/content';
 import { useNavigation } from '@/lib/functions';
 import { CheckCircle2, Target, Eye } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function AboutPage() {
-
     const { handleContact } = useNavigation();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     return (
         <div className="min-h-screen bg-white">
-            <section className="relative bg-gradient-to-br from-[#0A2240] via-[#0A2240] to-[#00A8E8] text-white py-12 sm:py-16 md:py-20 lg:py-24">
+            <section className="relative bg-linear-to-br from-[#0A2240] via-[#0A2240] to-[#00A8E8] text-white py-12 sm:py-16 md:py-20 lg:py-24">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="max-w-4xl mx-auto text-center">
                         <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
@@ -24,11 +29,11 @@ export default function AboutPage() {
             <section className="py-8 sm:py-12 md:py-16 bg-[#F8FBFD]">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="grid grid-cols-2 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
-                        {stats.map((stat, index) => {
+                        {isMounted && stats.map((stat, index) => {
                             const Icon = stat.icon;
                             return (
                                 <div key={index} className="text-center p-2 sm:p-0">
-                                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
+                                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 bg-linear-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
                                         <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
                                     </div>
                                     <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#0A2240] mb-1 sm:mb-2">
@@ -61,11 +66,11 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-            <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-[#F8FBFD]">
+            <section className="py-12 sm:py-16 md:py-20 bg-linear-to-b from-white to-[#F8FBFD]">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 max-w-6xl mx-auto">
                         <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg sm:shadow-xl border border-gray-100">
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 sm:mb-6 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 sm:mb-6 bg-linear-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
                                 <Target className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
                             </div>
                             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0A2240] mb-3 sm:mb-4">
@@ -76,7 +81,7 @@ export default function AboutPage() {
                             </p>
                         </div>
                         <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg sm:shadow-xl border border-gray-100">
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 sm:mb-6 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-4 sm:mb-6 bg-linear-to-br from-[#00A8E8] to-[#0095D1] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg">
                                 <Eye className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
                             </div>
                             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0A2240] mb-3 sm:mb-4">
@@ -107,7 +112,7 @@ export default function AboutPage() {
                                         key={index}
                                         className="group p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-gray-100 hover:border-[#00A8E8] hover:shadow-lg sm:hover:shadow-xl transition-all duration-300"
                                     >
-                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mb-4 sm:mb-6 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] rounded-lg sm:rounded-xl flex items-center justify-center shadow-sm sm:shadow-md group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-300">
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mb-4 sm:mb-6 bg-linear-to-br from-[#00A8E8] to-[#0095D1] rounded-lg sm:rounded-xl flex items-center justify-center shadow-sm sm:shadow-md group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-300">
                                             <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
                                         </div>
                                         <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#0A2240] mb-2 sm:mb-3">
@@ -132,7 +137,7 @@ export default function AboutPage() {
                         <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg sm:shadow-xl">
                             <div className="space-y-4 sm:space-y-6">
                                 <div className="flex items-start gap-3 sm:gap-4">
-                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] flex-shrink-0 mt-0.5 sm:mt-1" />
+                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] shrink-0 mt-0.5 sm:mt-1" />
                                     <div>
                                         <h4 className="text-lg sm:text-xl font-bold text-[#0A2240] mb-1 sm:mb-2">
                                             Comprehensive One-Stop Solution
@@ -144,7 +149,7 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3 sm:gap-4">
-                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] flex-shrink-0 mt-0.5 sm:mt-1" />
+                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] shrink-0 mt-0.5 sm:mt-1" />
                                     <div>
                                         <h4 className="text-lg sm:text-xl font-bold text-[#0A2240] mb-1 sm:mb-2">
                                             Startup India Recognition
@@ -156,7 +161,7 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3 sm:gap-4">
-                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] flex-shrink-0 mt-0.5 sm:mt-1" />
+                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] shrink-0 mt-0.5 sm:mt-1" />
                                     <div>
                                         <h4 className="text-lg sm:text-xl font-bold text-[#0A2240] mb-1 sm:mb-2">
                                             Technology-Driven Approach
@@ -168,7 +173,7 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3 sm:gap-4">
-                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] flex-shrink-0 mt-0.5 sm:mt-1" />
+                                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#00A8E8] shrink-0 mt-0.5 sm:mt-1" />
                                     <div>
                                         <h4 className="text-lg sm:text-xl font-bold text-[#0A2240] mb-1 sm:mb-2">
                                             Pan-India Service with Personal Touch
@@ -183,7 +188,7 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-            <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#00A8E8] to-[#0095D1] text-white">
+            <section className="py-12 sm:py-16 md:py-20 bg-linear-to-br from-[#00A8E8] to-[#0095D1] text-white">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-tight">
