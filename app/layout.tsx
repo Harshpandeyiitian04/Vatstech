@@ -1,29 +1,29 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import ChatWidget from "@/components/ChatWidget";
+// app/layout.tsx
+import type { Metadata } from 'next'
+import './globals.css'
+import {Header} from '@/components/header'
+import {Footer} from '@/components/footer'
 
 export const metadata: Metadata = {
-  title: "VATSTECH",
-  description: "Your Complete Business Solution Partner",
-};
+  title: 'Vatstech',
+  description: 'Your application description',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`antialiased`}
+    <html lang="en" suppressHydrationWarning>
+      <body 
+        className="antialiased"
+        suppressHydrationWarning
       >
         <Header />
         {children}
-        <ChatWidget />
-        <Footer />
+        <Footer/>
       </body>
     </html>
-  );
+  )
 }
