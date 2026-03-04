@@ -72,35 +72,35 @@ export function Footer() {
                             <h4 className="font-semibold mb-3 sm:mb-4 lg:mb-5 text-base sm:text-lg">Follow Us</h4>
                             <div className="flex space-x-4 sm:space-x-5 lg:space-x-6 flex-wrap gap-3 sm:gap-0">
                                 <a
-                                    href="https://www.x.com/vatstechb"
+                                    href="#"
                                     className="hover:text-[#f6d11b] transition hover:scale-110 inline-block"
                                     aria-label="Follow us on X (Twitter)"
                                 >
                                     <Twitter className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </a>
                                 <a
-                                    href="https://linkedin.com/company/vatstechb"
+                                    href="#"
                                     className="hover:text-[#0077b5] transition hover:scale-110 inline-block"
                                     aria-label="Follow us on LinkedIn"
                                 >
                                     <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </a>
                                 <a
-                                    href="https://www.facebook.com/vatstechb"
+                                    href="#"
                                     className="hover:text-[#1877F2] transition hover:scale-110 inline-block"
                                     aria-label="Follow us on Facebook"
                                 >
                                     <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </a>
                                 <a
-                                    href="https://www.instagram.com/vatstechb"
+                                    href="#"
                                     className="hover:text-[#E4405F] transition hover:scale-110 inline-block"
                                     aria-label="Follow us on Instagram"
                                 >
                                     <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </a>
                                 <a
-                                    href="https://wa.me/919576894955"
+                                    href="#"
                                     className="hover:text-[#25D366] transition hover:scale-110 inline-block"
                                     aria-label="Chat with us on WhatsApp"
                                 >

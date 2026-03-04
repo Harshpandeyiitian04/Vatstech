@@ -36,7 +36,7 @@ export default function ContactPage() {
                 <div className="min-w-0">
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Email</p>
                   <a href="mailto:info@vatstech.in" className="text-blue-600 hover:underline text-sm sm:text-base truncate">
-                    info@vatstech.in
+                    harshpandeyiitian04@gmail.com
                   </a>
                 </div>
               </div>
@@ -45,7 +45,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Phone</p>
                   <a href="tel:+919576894955" className="text-blue-600 hover:underline text-sm sm:text-base">
-                    +91-9576894955
+                    +91-7879482203
                   </a>
                 </div>
               </div>
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 <MapPin className="w-5 h-5 text-blue-600 shrink-0" />
                 <div>
                   <p className="font-semibold text-gray-800 text-sm sm:text-base">Location</p>
-                  <p className="text-gray-600 text-sm sm:text-base">Patna, Bihar, India</p>
+                  <p className="text-gray-600 text-sm sm:text-base">H.P. India</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-lg shadow-sm sm:shadow-md">

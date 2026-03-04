@@ -31,21 +31,21 @@ export function Contact() {
                                     <Mail className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240] text-sm sm:text-base">Email</p>
-                                <p className="text-gray-600 text-sm sm:text-base break-all">info@vatstech.in</p>
+                                <p className="text-gray-600 text-sm sm:text-base break-all">harshpandeyiitian04@gmail.com</p>
                             </div>
                             <div className="flex flex-col items-center p-4 sm:p-0">
                                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#E6F4FA] rounded-full flex items-center justify-center mb-3 sm:mb-5 shadow-inner">
                                     <Phone className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240] text-sm sm:text-base">Phone</p>
-                                <p className="text-gray-600 text-sm sm:text-base">+91-9576894955</p>
+                                <p className="text-gray-600 text-sm sm:text-base">+91-7879482203</p>
                             </div>
                             <div className="flex flex-col items-center p-4 sm:p-0">
                                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#E6F4FA] rounded-full flex items-center justify-center mb-3 sm:mb-5 shadow-inner">
                                     <MapPin className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-[#00A8E8]" />
                                 </div>
                                 <p className="font-semibold text-[#0A2240] text-sm sm:text-base">Location</p>
-                                <p className="text-gray-600 text-sm sm:text-base">Patna, Bihar India</p>
+                                <p className="text-gray-600 text-sm sm:text-base">H.P. India</p>
                             </div>
                             <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-sm sm:shadow-md lg:col-span-1 sm:col-span-2 xs:col-span-1 min-w-70">
                                 <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
